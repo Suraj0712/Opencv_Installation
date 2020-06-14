@@ -1,111 +1,59 @@
-[![Udacity - Robotics NanoDegree Program](https://s3-us-west-1.amazonaws.com/udacity-robotics/Extra+Images/RoboND_flag.png)](https://www.udacity.com/robotics)
+# Opencv Installation
 
-# Udacity Nanodegree: Sensor Fusion
+OpenCV (Open Source Computer Vision Library) is an open-source computer vision and machine learning software library. OpenCV was built to provide a common infrastructure for computer vision applications and to accelerate the use of machine perception in commercial products. Being a BSD-licensed product, OpenCV makes it easy for businesses to utilize and modify the code. 
 
-## Project 01: Lidar Obstacle Detection
+Using this repository we will install the OpenCV on Ubuntu16.04 and also take a look at sample project in c++ using OpenCV. If you have ROS installed in your system then just update the .bashrc file as follows.
 
-<img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
-
-### Project Objective
-
-This project aims to detect the obstacle in the point cloud data received from the car.
-
-- **Working with Point Cloud Data** using the [Point Cloud Library](https://pointcloudlibrary.github.io/) (PCL), including streaming PCD files,
-- Segmenting the road from non-road points by **fitting a plane using RANSAC**,
-- Grouping points using **Euclidean Clustering via Kd-trees** to find obstacles,
-- **Fitting oriented bounding boxes** over clustered obstacle points to simplify tracking and collision avoidance.
-
-The project pipeline is as follows.
+### Step 1
 ```
-1. Load the .pcd file
-2. Downsample the data using VoxelGrid filter
-3. Extract the area of interest using the box filters
-4. Segment the cloud using the RANSAC to separate the ground plane and obstacles
-5. Use KdTree and Euclidean Clustering based clustering algorithm for clustering the obstacles
-6. Draw a bounding box around the object
-7. Loop through the .pcd files and stream the results
-
+$ cd 
+$ gedit .bashrc
 ```
-### Directory Structure
+Once the bashrc file is open update commnet the lines where you are sourcing the environment. for example source /opt/ros/kinetic/setup.bash => #source /opt/ros/kinetic/setup.bash
 
+### Step 2
+Clone the repository.
 ```
-.
-├── CMakeLists.txt                        # Top level Cmake file
-├── media                                 # Folder containing the screenshots of the results
-│   ├── LIDAR_OD.mkv
-│   ├── ObstacleDetectionFPS.gif
-│   ├── sf***.png
-├── README.md                             # Readme file for reference
-└── src
-    ├── environment.cpp                   # File to setup the environment
-    ├── processPointClouds.cpp            # File containing actual implementation of segmentation, custering and IO
-    ├── processPointClouds.h
-    ├── quiz                              # Quiz folder containing implementation of KDtree and RANSAC
-    │   ├── cluster
-    │   │   ├── cluster.cpp
-    │   │   ├── CMakeLists.txt
-    │   │   └── kdtree.h
-    │   └── ransac
-    │       ├── CMakeLists.txt
-    │       └── ransac2d.cpp
-    ├── render                            # Package for data visualization
-    │   ├── box.h
-    │   ├── render.cpp
-    │   └── render.h
-    └── sensors
-        ├── data
-        │   └── pcd
-        │       ├── data_1
-        │       │   ├── *****.pcd
-        │       ├── data_2
-        │       │   ├── *****.pcd
-        │       └── simpleHighway.pcd
-        └── lidar.h
+$ git clone git@github.com:Suraj0712/Opencv_Installation.git
+```
+#### Directory Structure
+```
+.Opencv_Installation
+├── install_opencv.sh		#Installtion script
+├── LICENSE 			#License file
+├── README.md			#Read me file
+└── Sample_project		#Example project
+    ├── CMakeLists.txt		#Cmake file containing build instruction
+    ├── driver.sh		#Driver script
+    ├── src
+    │   └── main.cpp		#Source code
+    └── test.png
+```
+### Step 3
+Now you have to execute the installation script to install OpenCV. Open the ```install_opencv.sh``` script and change the line no 83,84 accordingly. If you are dont know how to change then leave the script as it is and execute the following commands.
 
 ```
-### How to run
-
-#### 1. First of all, clone this repo:
+$ cd <path_to_project_directory>
+$ chmod +x install_opencv.sh 
+$ sudo sh install_opencv.sh
 ```
-git clone git@github.com:Suraj0712/SFND_1_Lidar_Obstacle_Detection.git
+The script takes some time for complete execution.
+
+### Step 4
+Upon successful installation of OpenCV, we can start with our first sample project. I am using CMake to build the project. As you can see in the directory structure we have a Cmake file, the src folder containing the source code, and the test image. I have created the driver script to build and run the project. You need to make a few changes before executing the script. 
+
+Change no 1=> line no. 3: Give the appropriate project path
+Change no 2=> line no. 10: update the path for the image. 
+
+once you update the ```driver.sh``` script you need to run following command to run the project.
+
 ```
-
-#### 2. Package dependencies 
+$ cd <path_to_project_directory>
+$ cd Sample_project
+$ chmod +x driver.sh
+$ sh driver.sh 
 ```
-PCL
-CMake
-system
-filesystem
-thread
-date_time
-iostreams
-serialization
-chrono
-atomic
-regex
-```
-
-#### 3. Build the project
-```
-$ cd SFND_1_Lidar_Obstacle_Detection
-$ mkdir build && cd build
-$ cmake ..
-$ make 
-$ ./environment
-```
-### 4. Results
-
-#### Segmentation 
-![alt txt](media/sf6.png)
-
-#### RANSAC 
-![alt txt](media/sf7.png)
-
-#### Clustering 
-![alt txt](media/sf8.png)
-
-#### KdTree
-![alt txt](media/sf9.png)
+## Thank you
 
 
 
