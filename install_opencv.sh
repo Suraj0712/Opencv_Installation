@@ -16,6 +16,8 @@ sudo apt -y upgrade
 sudo apt -y remove x264 libx264-dev
  
 ## Install dependencies
+sudo apt -y install python3-pip
+sudo apt -y install python-pip
 sudo apt -y install build-essential checkinstall cmake pkg-config yasm
 sudo apt -y install git gfortran
 sudo apt -y install libjpeg8-dev libjasper-dev libpng12-dev
@@ -78,6 +80,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
         -D BUILD_EXAMPLES=ON ..
         
 
-make -j10
+make #will build on only one core
+#make -j4  #will build on only 4 cores update it accordingly
 sudo make install
 sudo ldconfig
